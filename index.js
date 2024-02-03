@@ -8,16 +8,20 @@ class Svg {
     this.textElement = "";
     this.shapeElement = "";
   }
+
   render() {
     return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeElement}${this.textElement}</svg>`;
   }
+
   setTextElement(text, color) {
     this.textElement = `<text x="150" y="150" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`;
   }
+
   setShapeElement(shape) {
-    this.shapeElement = shape.render()
+    this.shapeElement = shape.render();
+  }
 }
-}
+
 
 // Array of questions
 const questions = [
@@ -45,14 +49,14 @@ const questions = [
 ];
 
 const writeToFile = (fileName, data) => {
-    console.log(`Writing [${data}] to file [${fileName}]`);
-    fs.writeFile(fileName, data, (err) => {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("Success, you have generated logo.svg");
-    });
-}
+  console.log(`Writing [${data}] to file [${fileName}]`);
+  fs.writeFile(fileName, data, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("Success, you have generated logo.svg");
+  });
+};
 
 const init = async () => {
   console.log("Starting init");
