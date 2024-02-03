@@ -22,18 +22,25 @@ class Svg {
   }
 }
 
-
 // Array of questions
 const questions = [
   {
     type: "input",
     name: "text",
     message: "Enter up to three characters:",
+    validate: (input) => {
+      return input.length <= 3 ? true : "Please enter up to three characters";
+    },
   },
   {
     type: "input",
     name: "textColor",
     message: "Enter text color by keyword or hexadecimal:",
+    validate: (input) => {
+      const validHex = input.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
+      const validColorName = /^([a-zA-Z])+$/.test(input.toLowerCase()); // Check if it's a valid color name
+      return validHex || validColorName || "Invalid color format";
+    },
   },
   {
     type: "list",
@@ -45,8 +52,14 @@ const questions = [
     type: "input",
     name: "shapeColor",
     message: "Enter shape color by keyword or hexadecimal:",
+    validate: (input) => {
+      const validHex = input.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
+      const validColorName = /^([a-zA-Z])+$/.test(input.toLowerCase()); // Check if it's a valid color name
+      return validHex || validColorName || "Invalid color format";
+    },
   },
 ];
+
 
 const writeToFile = (fileName, data) => {
   console.log(`Writing [${data}] to file [${fileName}]`);
