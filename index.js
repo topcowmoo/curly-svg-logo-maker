@@ -79,7 +79,8 @@ const questions = [
 ];
 
 const writeToFile = (fileName, data) => {
-  const uniqueFileName = `examples/${fileName}`;
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const uniqueFileName = `examples/${fileName.replace(/\.[^/.]+$/, "")}_${timestamp}.svg`;
 
   console.log(`Writing [${data}] to file [${uniqueFileName}]`);
   fs.writeFile(uniqueFileName, data, (err) => {
