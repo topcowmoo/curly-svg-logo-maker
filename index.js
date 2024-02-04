@@ -79,14 +79,19 @@ const questions = [
 ];
 
 const writeToFile = (fileName, data) => {
-  console.log(`Writing [${data}] to file [${fileName}]`);
-  fs.writeFile(fileName, data, (err) => {
+  const timestamp = new Date().toISOString().replace(/:/g, "-").replace(".", "-");
+  const uniqueFileName = `examples/${fileName.replace(".svg", `_${timestamp}.svg`)}`;
+
+  console.log(`Writing [${data}] to file [${uniqueFileName}]`);
+  fs.writeFile(uniqueFileName, data, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log("Success, you have generated logo.svg");
+    console.log(`Success, you have generated ${uniqueFileName}`);
   });
 };
+
+
 
 const init = async () => {
   console.log("Starting init");
