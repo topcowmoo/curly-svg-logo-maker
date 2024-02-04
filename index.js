@@ -1,6 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { Triangle, Circle, Square } = require("./lib/shapes");
+const { Triangle, Circle, Square } = require("./lib/shapes");  // Importing the classes from the shapes module
 
 class Svg {
   constructor() {
@@ -34,11 +34,11 @@ class Svg {
     }
 
     this.textElement = `<text x="${textX}" y="${textY}" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="${color}">${text}</text>`;
-}
+  }
 
-setShapeElement(shape) {
-  this.shapeElement = `<g transform="translate(${150 - shape.centerX()}, ${100 - shape.centerY()})">${shape.render()}</g>`;
-}
+  setShapeElement(shape) {
+    this.shapeElement = `<g transform="translate(${150 - shape.centerX()}, ${100 - shape.centerY()})">${shape.render()}</g>`;
+  }
 }
 
 const questions = [
@@ -55,7 +55,7 @@ const questions = [
     name: "textColor",
     message: "Enter text color by keyword or hexadecimal:",
     validate: (input) => {
-      const validHex = input.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
+      const validHex = /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/.test(input);
       const validColorName = /^([a-zA-Z])+$/.test(input.toLowerCase()); // Check if it's a valid color name
       return validHex || validColorName || "Invalid color format";
     },
@@ -71,7 +71,7 @@ const questions = [
     name: "shapeColor",
     message: "Enter shape color by keyword or hexadecimal:",
     validate: (input) => {
-      const validHex = input.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
+      const validHex = /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/.test(input);
       const validColorName = /^([a-zA-Z])+$/.test(input.toLowerCase()); // Check if it's a valid color name
       return validHex || validColorName || "Invalid color format";
     },
@@ -90,8 +90,6 @@ const writeToFile = (fileName, data) => {
     console.log(`Success, you have generated ${uniqueFileName}`);
   });
 };
-
-
 
 const init = async () => {
   console.log("Starting init");
