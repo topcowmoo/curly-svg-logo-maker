@@ -1,4 +1,3 @@
-// Import packages needed for application
 const fs = require("fs");
 const inquirer = require("inquirer");
 const { Triangle, Circle, Square } = require("./lib/shapes");
@@ -13,16 +12,35 @@ class Svg {
     return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeElement}${this.textElement}</svg>`;
   }
 
-  setTextElement(text, color) {
-    this.textElement = `<text x="150" y="150" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`;
-  }
+  setTextElement(text, color, shape) {
+    let textX, textY;
 
-  setShapeElement(shape) {
-    this.shapeElement = shape.render();
-  }
+    switch (shape.toLowerCase()) {
+      case "triangle":
+        textX = 150;
+        textY = 130; // Adjusted for vertical centering
+        break;
+      case "circle":
+        textX = 150;
+        textY = 105;
+        break;
+      case "square":
+        textX = 150;
+        textY = 100;
+        break;
+      default:
+        console.log("Invalid shape!");
+        return;
+    }
+
+    this.textElement = `<text x="${textX}" y="${textY}" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="${color}">${text}</text>`;
 }
 
-// Array of questions
+setShapeElement(shape) {
+  this.shapeElement = `<g transform="translate(${150 - shape.centerX()}, ${100 - shape.centerY()})">${shape.render()}</g>`;
+}
+}
+
 const questions = [
   {
     type: "input",
@@ -60,7 +78,6 @@ const questions = [
   },
 ];
 
-
 const writeToFile = (fileName, data) => {
   console.log(`Writing [${data}] to file [${fileName}]`);
   fs.writeFile(fileName, data, (err) => {
@@ -76,9 +93,8 @@ const init = async () => {
 
   const answers = await inquirer.prompt(questions);
 
-  // Process user input and generate SVG
   const userSvg = new Svg();
-  userSvg.setTextElement(answers.text, answers.textColor);
+  userSvg.setTextElement(answers.text, answers.textColor, answers.shape);
 
   let userShape;
   switch (answers.shape.toLowerCase()) {
@@ -103,9 +119,7 @@ const init = async () => {
   console.log("Generated SVG:");
   console.log(svgString);
 
-  // Write SVG string to file
   writeToFile("logo.svg", svgString);
 };
 
-// Call function
 init();
