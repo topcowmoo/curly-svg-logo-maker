@@ -41,6 +41,8 @@ class Svg {
   }
 }
 
+module.exports = Svg; 
+
 const questions = [
   {
     type: "input",
@@ -127,3 +129,4 @@ const init = async () => {
 };
 
 init();
+
