@@ -6,7 +6,7 @@ Welcome to my SVG logo generator application. This is a simple tool to make logo
 
 Please have a look at my walkthrough video:
 
-https://drive.google.com/file/d/1S1_E_iAL1IYf-ec5-7y-NTEI-cC1cKE1/view
+https://drive.google.com/file/d/1pQrjDiopvKF9VMTAedhObb9kTmgYmlLF/view
 
 ## Table of Contents
 
